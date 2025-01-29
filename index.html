@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indicadores TNPS Y TX</title>
+    <title>Indicadores TNPS, TX y Calidad</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
@@ -13,6 +13,7 @@
             --success-color: #27ae60;
             --warning-color: #f1c40f;
             --danger-color: #e74c3c;
+            --info-color: #9b59b6;
             --background-color: #f8f9fa;
         }
 
@@ -79,7 +80,7 @@
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin-top: 30px;
         }
@@ -116,1035 +117,1369 @@
             color: var(--success-color);
         }
 
-        .annotation-line {
-            border-left: 2px dashed var(--danger-color);
-            height: 100%;
-            position: absolute;
-            top: 0;
-        }
-
     </style>
     <script>
         let myChart = null;
         const data = { "Hoja2":[
+            /* Datos existentes con el nuevo campo CALIDAD agregado */
                  {
                   "ASESOR": "Jackeline Judith Gutierrez Carrillo",
                   "TNPS": 1,
                   "TX": 0.7368421052631579,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "HENRY ENDRIK CHAPOÃ‘AN SANCHEZ",
                   "TNPS": 1,
                   "TX": 0.6367924528301887,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.833825,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "CHAPOÑAN SANCHEZ HENRY ENDRIK"
                  },
                  {
                   "ASESOR": "Roxana Elizabeth Adrianzen Leon",
                   "TNPS": 1,
                   "TX": 0.7247706422018348,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.575,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "ADRIANZEN LEON ROXANA ELIZABETH"
                  },
                  {
                   "ASESOR": "Isabel Cristina Moran Rosales",
                   "TNPS": 0.8461538461538461,
                   "TX": 0.7166392092257001,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.71634,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "MORAN ROSALES ISABEL CRISTINA"
                  },
                  {
                   "ASESOR": "CESAR RODRIGO VARGAS COBOS",
                   "TNPS": 0.8321678321678322,
                   "TX": 0.8100358422939068,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 1,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "VARGAS COBOS CESAR RODRIGO"
                  },
                  {
                   "ASESOR": "MIGUEL ENRIQUE LA ROSA ARESTEGUI",
                   "TNPS": 0.8242424242424242,
                   "TX": 0.8738738738738738,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.9625,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "LA ROSA ARESTEGUI MIGUEL ENRIQUE"
                  },
                  {
                   "ASESOR": "EVELIN ROXANA PAIVA ESTEVEZ",
                   "TNPS": 0.7868852459016393,
                   "TX": 0.74375,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 1,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "PAIVA ESTEVEZ EVELIN ROXANA"
                  },
                  {
                   "ASESOR": "ANDREA ELIZABETH MARCELO ESCUDERO",
                   "TNPS": 0.7857142857142857,
                   "TX": 0.7369519832985386,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8875,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "MARCELO ESCUDERO ANDREA ELIZABETH"
                  },
                  {
                   "ASESOR": "SHARON MISHEL NUNTA CURAHUA",
                   "TNPS": 0.7637362637362637,
                   "TX": 0.7065527065527065,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.9099999999999999,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "NUNTA CURAHUA SHARON MISHEL"
                  },
                  {
                   "ASESOR": "MELISSA TORRES QUISPE",
                   "TNPS": 0.7596153846153846,
                   "TX": 0.7624521072796935,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.81088,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "TORRES QUISPE MELISSA"
                  },
                  {
                   "ASESOR": "LIZBETH GUILLEN ZEVALLOS",
                   "TNPS": 0.75,
                   "TX": 0.7668711656441718,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8035000000000001,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "GUILLEN ZEVALLOS LIZBETH"
                  },
                  {
                   "ASESOR": "MARIA ALEJANDRA GUEVARA TEMOCHE",
                   "TNPS": 0.7456896551724138,
                   "TX": 0.7880539499036608,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8588250000000001,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "GUEVARA TEMOCHE MARIA ALEJANDRA"
                  },
                  {
                   "ASESOR": "AURORA ISABEL PEREZ TREVEJO",
                   "TNPS": 0.7361111111111112,
                   "TX": 0.7821782178217822,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8411499999999998,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "PEREZ TREVEJO AURORA ISABEL"
                  },
                  {
                   "ASESOR": "MARÃA ISABEL GARCÃA CHAPOÃ‘AN",
                   "TNPS": 0.725,
                   "TX": 0.8081264108352144,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.83216,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "GARCÍA CHAPOÑAN MARÍA ISABEL"
                  },
                  {
                   "ASESOR": "JACQUELINE JESUS SANTOS GAMARRA DE HERMITAÃ‘O",
                   "TNPS": 0.711864406779661,
                   "TX": 0.7280334728033473,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8779666666666667,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "SANTOS GAMARRA JACQUELINE JESUS"
                  },
                  {
                   "ASESOR": "Mayra Milagros Merino Hurtado",
                   "TNPS": 0.7096774193548387,
                   "TX": 0.6847457627118644,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.6661,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "MERINO HURTADO MAYRA MILAGROS"
                  },
                  {
                   "ASESOR": "KAREN ROCIO ROCIO PEREYRA DIESBACK",
                   "TNPS": 0.7087378640776699,
                   "TX": 0.7727272727272727,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.90625,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "PEREYRA DIESBACK KAREN ROCIO ROCIO"
                  },
                  {
                   "ASESOR": "ROGER FELIX VALER ROJAS",
                   "TNPS": 0.6878306878306878,
                   "TX": 0.7424960505529226,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.9552400000000001,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "VALER ROJAS ROGER FELIX"
                  },
                  {
                   "ASESOR": "JULISSA CAROLINA VASQUEZ PINTO",
                   "TNPS": 0.6859504132231405,
                   "TX": 0.777027027027027,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8314750000000001,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "VASQUEZ PINTO JULISSA CAROLINA"
                  },
                  {
                   "ASESOR": "DIANA LISBETH FLORES OLIVOS",
                   "TNPS": 0.6834532374100719,
                   "TX": 0.7373417721518988,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.83355,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "FLORES OLIVOS DIANA LISBETH"
                  },
                  {
                   "ASESOR": "NELLY FARFAN LLOCCLLA",
                   "TNPS": 0.6666666666666666,
                   "TX": 0.7551020408163265,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8714,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "FARFAN LLOCCLLA NELLY"
                  },
                  {
                   "ASESOR": "YOSELYN LORENA MORILLO LUCENA",
                   "TNPS": 0.6666666666666666,
                   "TX": 0.5433436532507739,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.902225,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "MORILLO LUCENA YOSELYN LORENA"
                  },
                  {
                   "ASESOR": "NICOLE SOPHIE SANTISTEBAN DÃVILA",
                   "TNPS": 0.6666666666666666,
                   "TX": 0.7831325301204819,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.9196166666666667,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "SANTISTEBAN DÁVILA NICOLE SOPHIE"
                  },
                  {
                   "ASESOR": "GISELA MARIA PAREDES RAFAEL",
                   "TNPS": 0.6385542168674698,
                   "TX": 0.7,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8164,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "PAREDES RAFAEL GISELA MARIA"
                  },
                  {
                   "ASESOR": "FRANCISCO JAVIER AQUINO LA ROSA",
                   "TNPS": 0.6349206349206349,
                   "TX": 0.780327868852459,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.9178000000000001,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "AQUINO LA ROSA FRANCISCO JAVIER"
                  },
                  {
                   "ASESOR": "SERGIO MANUEL VENTURA CHAMBI",
                   "TNPS": 0.6336633663366337,
                   "TX": 0.8924731182795699,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.9125,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "VENTURA CHAMBI SERGIO MANUEL"
                  },
                  {
                   "ASESOR": "MILUSKA CHEYLA SOBRINO VASQUEZ",
                   "TNPS": 0.6296296296296297,
                   "TX": 0.8251121076233184,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8228666666666666,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "SOBRINO VASQUEZ MILUSKA CHEYLA"
                  },
                  {
                   "ASESOR": "GINA MARISOL AGUILAR YBAÃ‘EZ",
                   "TNPS": 0.6056338028169014,
                   "TX": 0.7897623400365631,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.96645,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "AGUILAR YBAÑEZ GINA MARISOL"
                  },
                  {
                   "ASESOR": "Leydy Laura Lozano Laurente",
                   "TNPS": 0.577639751552795,
                   "TX": 0.6491525423728813,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8836750000000001,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "LOZANO LAURENTE LEYDY LAURA"
                  },
                  {
                   "ASESOR": "CARLA NELIDAD VILLALOBOS ZULOETA",
                   "TNPS": 0.5443037974683544,
                   "TX": 0.6440129449838188,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.8062999999999999,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "VILLALOBOS ZULOETA CARLA NELIDAD"
                  },
                  {
                   "ASESOR": "HILARY MELANIE SANCHEZ CASTILLO",
                   "TNPS": 0.4962962962962963,
                   "TX": 0.9574468085106383,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.91875,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "SANCHEZ CASTILLO HILARY MELANIE"
                  },
                  {
                   "ASESOR": "LAURA JANETH MENDOZA ROMANI",
                   "TNPS": 0.46113989637305697,
                   "TX": 0.7658227848101266,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.9012000000000001,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "MENDOZA ROMANI LAURA JANETH"
                  },
                  {
                   "ASESOR": "Fabrrizio Del piero Quezada Aguilar",
                   "TNPS": 0.1937984496124031,
                   "TX": 0.7649122807017544,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0.7147333333333333,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "QUEZADA AGUILAR FABRRIZIO DEL PIERO"
                  },
                  {
                   "ASESOR": "FLOR DE MARIA FERNANDEZ CORREA",
                   "TNPS": 0,
                   "TX": 0.7127659574468085,
-                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                  "CALIDAD": 0,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI",
+                  "NOMBRE CORRECTO": "FERNANDEZ CORREA FLOR DE MARIA"
                  },
                  {
                   "ASESOR": "Rudy Auristela Davila Irarica",
                   "TNPS": 0.875,
                   "TX": 0.6855670103092784,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.8173,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "DAVILA IRARICA RUDY AURISTELA"
                  },
                  {
                   "ASESOR": "ARYSS ALMENDRA PIZANGO RIVAS",
                   "TNPS": 0.8723404255319149,
                   "TX": 0.3343465045592705,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.7970999999999999,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "PIZANGO RIVAS ARYSS ALMENDRA"
                  },
                  {
                   "ASESOR": "Ever Luis Llanos Sparrow",
                   "TNPS": 0.8285714285714286,
                   "TX": 0.6708860759493671,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.82765,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "LLANOS SPARROW EVER LUIS"
                  },
                  {
                   "ASESOR": "Roxana Elizabeth Adrianzen Leon",
                   "TNPS": 0.8205128205128205,
                   "TX": 0.7247706422018348,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.575,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "ADRIANZEN LEON ROXANA ELIZABETH"
                  },
                  {
                   "ASESOR": "Jackeline Judith Gutierrez Carrillo",
                   "TNPS": 0.8181818181818182,
                   "TX": 0.7368421052631579,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "GEORJDY ALAIN RONDOY ORTIZ",
                   "TNPS": 0.8032786885245902,
                   "TX": 0.859504132231405,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.8952,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "RONDOY ORTIZ GEORJDY ALAIN"
                  },
                  {
                   "ASESOR": "Yoelys Eugenia Monrroy Monasterio",
                   "TNPS": 0.8,
                   "TX": 0.7380952380952381,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.775,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "MONRROY MONASTERIO YOELYS EUGENIA"
                  },
                  {
                   "ASESOR": "JIMY GONZALES VASQUEZ",
                   "TNPS": 0.7762237762237763,
                   "TX": 0.45161290322580644,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.6137,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "GONZALES VASQUEZ JIMY"
                  },
                  {
                   "ASESOR": "ROCIO DEL PILAR CHAVEZ CARRERA DE HARO",
                   "TNPS": 0.7710843373493976,
                   "TX": 0.8727272727272727,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.6528,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "CHAVEZ CARRERA DE HARO ROCIO DEL PILAR"
                  },
                  {
                   "ASESOR": "Katherine Lourdes Corso Mariano",
                   "TNPS": 0.7647058823529411,
                   "TX": 0.6190476190476191,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.8653,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "CORSO MARIANO KATHERINE LOURDES"
                  },
                  {
                   "ASESOR": "Karolayn Rasshell Salazar Diaz",
                   "TNPS": 0.7456140350877193,
                   "TX": 0.7483660130718954,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.74475,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "SALAZAR DIAZ KAROLAYN RASSHELL"
                  },
                  {
                   "ASESOR": "Daniel Alejandro Aliaga Hurtado",
                   "TNPS": 0.7439613526570048,
                   "TX": 0.7666666666666667,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.9042,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "ALIAGA HURTADO DANIEL ALEJANDRO"
                  },
                  {
                   "ASESOR": "NICOLE SOPHIE SANTISTEBAN DÃVILA",
                   "TNPS": 0.7386363636363636,
                   "TX": 0.7831325301204819,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.9196166666666667,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "SANTISTEBAN DÁVILA NICOLE SOPHIE"
                  },
                  {
                   "ASESOR": "MARIA ISABEL CHAVEZ OLANO",
                   "TNPS": 0.7345132743362832,
                   "TX": 0.8629629629629629,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.9036,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "CHAVEZ OLANO MARIA ISABEL"
                  },
                  {
                   "ASESOR": "LUCIA ESTHER DURAN GARCIA",
                   "TNPS": 0.7282608695652174,
                   "TX": 0.7387755102040816,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.8223666666666666,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "DURAN GARCIA LUCIA ESTHER"
                  },
                  {
                   "ASESOR": "IAM ALEXIS CASTRO FUENTES",
                   "TNPS": 0.7195121951219512,
                   "TX": 0.7298850574712644,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.8311000000000001,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "CASTRO FUENTES IAM ALEXIS"
                  },
                  {
                   "ASESOR": "Jenny Lizbeth Reto Chumacero",
                   "TNPS": 0.7093023255813954,
                   "TX": 0.6911764705882353,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "NAHOMI FABIOLA ROSALES PEREZ",
                   "TNPS": 0.6975308641975309,
                   "TX": 0.7306733167082294,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.84165,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "ROSALES PEREZ NAHOMI FABIOLA"
                  },
                  {
                   "ASESOR": "ANDREA ELIZABETH MARCELO ESCUDERO",
                   "TNPS": 0.6962616822429907,
                   "TX": 0.7369519832985386,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.8875,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "MARCELO ESCUDERO ANDREA ELIZABETH"
                  },
                  {
                   "ASESOR": "Helber Oswaldo Calderon Soto",
                   "TNPS": 0.6904761904761905,
                   "TX": 0.7591836734693878,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.7464,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "CALDERON SOTO HELBER OSWALDO"
                  },
                  {
                   "ASESOR": "CARLA DANIELA SARTORI RIOJA",
                   "TNPS": 0.6779661016949152,
                   "TX": 0.8728813559322034,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.7777000000000001,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "SARTORI RIOJA CARLA DANIELA"
                  },
                  {
                   "ASESOR": "Nicolas Jesuz Ordinola Diaz",
                   "TNPS": 0.6732673267326733,
                   "TX": 0.6952380952380952,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "ORDINOLA DIAZ NICOLAS JESUZ"
                  },
                  {
                   "ASESOR": "CHRISTOPHER GERARD TORRES MALDONADO",
                   "TNPS": 0.6666666666666666,
                   "TX": 0.20967741935483872,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.8143,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "TORRES MALDONADO CHRISTOPHER GERARD"
                  },
                  {
                   "ASESOR": "Arian Hatsumi Jara Gamarra",
                   "TNPS": 0.6666666666666666,
                   "TX": 0.5421686746987951,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.8843666666666667,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "JARA GAMARRA ARIAN HATSUMI"
                  },
                  {
                   "ASESOR": "ISABEL ZEGARRA CARPIO",
                   "TNPS": 0.6379310344827587,
                   "TX": 0.7692307692307693,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.8061999999999999,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "ZEGARRA CARPIO ISABEL"
                  },
                  {
                   "ASESOR": "ANGELES RUBY ACUÃ‘A CAMPOS",
                   "TNPS": 0.6153846153846154,
                   "TX": 0.7777777777777778,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.6331,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "ACUÑA CAMPOS ANGELES RUBY"
                  },
                  {
                   "ASESOR": "PIERRE CERDAN GUERREROS",
                   "TNPS": 0.6063829787234043,
                   "TX": 0.7142857142857143,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.7101999999999999,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "CERDAN GUERREROS PIERRE"
                  },
                  {
                   "ASESOR": "SANTOS ENRIQUE DIAZ MEZA",
                   "TNPS": 0.5882352941176471,
                   "TX": 0.6978021978021978,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.85985,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "DIAZ MEZA SANTOS ENRIQUE"
                  },
                  {
                   "ASESOR": "Janilva Octavia Huaman Aramburu",
                   "TNPS": 0.5510204081632653,
                   "TX": 0.7647058823529411,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.6740999999999999,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "HUAMAN ARAMBURU JANILVA OCTAVIA"
                  },
                  {
                   "ASESOR": "DIANA MIRELLA QUINTANA DURAND",
                   "TNPS": 0.5444444444444444,
                   "TX": 0.8081761006289309,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.820275,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "QUINTANA DURAND DIANA MIRELLA"
                  },
                  {
                   "ASESOR": "Valeria Giovanna Rospigliosi Leon",
                   "TNPS": 0.5434782608695652,
                   "TX": 0.6951672862453532,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.8073,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "ROSPIGLIOSI LEON VALERIA GIOVANNA"
                  },
                  {
                   "ASESOR": "SONIA JANET GISMONDI ESPINOZA",
                   "TNPS": 0.5,
                   "TX": 0.7215815485996705,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.9005375,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "GISMONDI ESPINOZA SONIA JANET"
                  },
                  {
                   "ASESOR": "DANIEL ALBERTO QUIROZ VILLAFRANCA",
                   "TNPS": 0.5,
                   "TX": 0.48349514563106794,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.73495,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "QUIROZ VILLAFRANCA DANIEL ALBERTO"
                  },
                  {
                   "ASESOR": "MONICA NICOL QUIMPER RAMIREZ",
                   "TNPS": 0.42857142857142855,
                   "TX": 0.7732342007434945,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.925,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "QUIMPER RAMIREZ MONICA NICOL"
                  },
                  {
                   "ASESOR": "BETSABE DAYANNA AROTINCO LOPEZ",
                   "TNPS": 0.4,
                   "TX": 0.6655405405405406,
-                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                  "CALIDAD": 0.89735,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA",
+                  "NOMBRE CORRECTO": "AROTINCO LOPEZ BETSABE DAYANNA"
                  },
                  {
                   "ASESOR": "NAOMI CARMEN OCHOA OCHOA",
                   "TNPS": 0.8666666666666667,
                   "TX": 0.6451612903225806,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "VIVIANA PILAR ROSALES ANCHANTE",
                   "TNPS": 0.8461538461538461,
                   "TX": 0.7940199335548173,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.92,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "ROSALES ANCHANTE VIVIANA PILAR"
                  },
                  {
                   "ASESOR": "SANDY CELENE HUERE VASCO",
                   "TNPS": 0.8260869565217391,
                   "TX": 0.8208955223880597,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "GABRIEL EDUARDO LUNA VICTORIA VARGAS",
                   "TNPS": 0.7903225806451613,
                   "TX": 0.722488038277512,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.9269499999999999,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "LUNA VICTORIA VARGAS GABRIEL EDUARDO"
                  },
                  {
                   "ASESOR": "MARYCIELO GRETELL SAENZ PEÃ‘A",
                   "TNPS": 0.7865168539325843,
                   "TX": 0.7142857142857143,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.7341,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "SAENZ PEÑA MARYCIELO GRETELL"
                  },
                  {
                   "ASESOR": "DANUSKA LOZANO LOZANO MENEZ",
                   "TNPS": 0.7714285714285715,
                   "TX": 0.7777777777777778,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "NICOLE ALESSANDRA SOBERON RONDON",
                   "TNPS": 0.7540983606557377,
                   "TX": 0.780952380952381,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.93845,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "SOBERON RONDON NICOLE ALESSANDRA"
                  },
                  {
                   "ASESOR": "KIMBERLIE ASHLEY GARRIDO CARDENAS",
                   "TNPS": 0.7419354838709677,
                   "TX": 0.7123287671232876,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.7839,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "GARRIDO CARDENAS KIMBERLIE ASHLEY"
                  },
                  {
                   "ASESOR": "PERCY VILCA LLANTO",
                   "TNPS": 0.7391304347826086,
                   "TX": 0.6896551724137931,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "AMANDA GRACE ZEGARRA CARAHUATAY",
                   "TNPS": 0.7362637362637363,
                   "TX": 0.6796407185628742,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.7498333333333335,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "ZEGARRA CARAHUATAY AMANDA GRACE"
                  },
                  {
                   "ASESOR": "ALEJANDRA RAFAELA LATURE OTOYA",
                   "TNPS": 0.7317073170731707,
                   "TX": 0.6120401337792643,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.78125,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "LATURE OTOYA ALEJANDRA RAFAELA"
                  },
                  {
                   "ASESOR": "GIANFRANCO WILDER QUISOCALA MAMANI",
                   "TNPS": 0.723404255319149,
                   "TX": 0.8282208588957055,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.8587,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "QUISOCALA MAMANI GIANFRANCO WILDER"
                  },
                  {
                   "ASESOR": "ADRIANA ANGELA CARLOS SANCHEZ",
                   "TNPS": 0.7176470588235294,
                   "TX": 0.6321428571428571,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.7503,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "CARLOS SANCHEZ ADRIANA ANGELA"
                  },
                  {
                   "ASESOR": "JHONATAN ISAIAS MEDINA REVOLLEDO",
                   "TNPS": 0.7168141592920354,
                   "TX": 0.7243816254416962,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.7798,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "MEDINA REVOLLEDO JHONATAN ISAIAS"
                  },
                  {
                   "ASESOR": "MARTIN JOE PRADO GARCIA",
                   "TNPS": 0.7058823529411765,
                   "TX": 0.8123324396782842,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.84192,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "PRADO GARCIA MARTIN JOE"
                  },
                  {
                   "ASESOR": "LUANA VALENTINA CALDERON MOSCOSO",
                   "TNPS": 0.6989247311827957,
                   "TX": 0.6929133858267716,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.7980499999999999,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "CALDERON MOSCOSO LUANA VALENTINA"
                  },
                  {
                   "ASESOR": "HENRY MAXIMILIANO CORREA CONDORI",
                   "TNPS": 0.6923076923076923,
                   "TX": 0.782608695652174,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.8848,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "CORREA CONDORI HENRY MAXIMILIANO"
                  },
                  {
                   "ASESOR": "KATIA SARITA ZAPATA MORALES",
                   "TNPS": 0.6666666666666666,
                   "TX": 0.8586956521739131,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.87835,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "ZAPATA MORALES KATIA SARITA"
                  },
                  {
                   "ASESOR": "FIORELLA ARACELY MOTTA OLAYA",
                   "TNPS": 0.6633663366336634,
                   "TX": 0.6565349544072948,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.8096,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "MOTTA OLAYA FIORELLA ARACELY"
                  },
                  {
                   "ASESOR": "LUCERO YUDITH MIRANDA PEÃ‘A",
                   "TNPS": 0.647887323943662,
                   "TX": 0.6532846715328468,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.7775,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "MIRANDA PEÑA LUCERO YUDITH"
                  },
                  {
                   "ASESOR": "JEREMÃAS GALVEZ JUAREZ",
                   "TNPS": 0.6307692307692307,
                   "TX": 0.734375,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.7397,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "GALVEZ JUAREZ JEREMÍAS"
                  },
                  {
                   "ASESOR": "ALESSANDRA CUBA BEDOYA",
                   "TNPS": 0.6,
                   "TX": 0.7329545454545454,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.7304,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "CUBA BEDOYA ALESSANDRA"
                  },
                  {
                   "ASESOR": "ELMER ALEJANDRO REMIGIO MARTINEZ",
                   "TNPS": 0.5974025974025974,
                   "TX": 0.7430939226519337,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.79885,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "REMIGIO MARTINEZ ELMER ALEJANDRO"
                  },
                  {
                   "ASESOR": "JEANPIER ADRIAN PARADO COLLAHUACHO",
                   "TNPS": 0.5377358490566038,
                   "TX": 0.8156424581005587,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.6740999999999999,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "PARADO COLLAHUACHO JEANPIER ADRIAN"
                  },
                  {
                   "ASESOR": "ANTHONY JAMES PORRAS VALLEJOS",
                   "TNPS": 0.5294117647058824,
                   "TX": 0.5502008032128514,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "JUAN CARLOS SOSA RETAMOZO",
                   "TNPS": 0.4722222222222222,
                   "TX": 0.4692556634304207,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.7614500000000001,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "SOSA RETAMOZO JUAN CARLOS"
                  },
                  {
                   "ASESOR": "SEBASTIAN ALESSANDRO VILLACORTA CHAVEZ",
                   "TNPS": 0.4318181818181818,
                   "TX": 0.6258503401360545,
-                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                  "CALIDAD": 0.9125,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI",
+                  "NOMBRE CORRECTO": "VILLACORTA CHAVEZ SEBASTIAN ALESSANDRO"
                  },
                  {
                   "ASESOR": "SUSAN ABIGAIL CHAVEZ SANTA MARIA",
                   "TNPS": 0.8235294117647058,
                   "TX": 0.7555555555555555,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.8274,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "CHAVEZ SANTA MARIA SUSAN ABIGAIL"
                  },
                  {
                   "ASESOR": "JULISSA CAROL ZUÃ‘IGA NARVAEZ",
                   "TNPS": 0.8108108108108109,
                   "TX": 0.810077519379845,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.90625,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "ZUÑIGA NARVAEZ JULISSA CAROL"
                  },
                  {
                   "ASESOR": "Deisy Susana Montes Guzman",
                   "TNPS": 0.7945205479452054,
                   "TX": 0.6708860759493671,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.8568000000000001,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "MONTES GUZMAN DEISY SUSANA"
                  },
                  {
                   "ASESOR": "LUIS CESAR PEREDA ARIAS",
                   "TNPS": 0.7906976744186046,
                   "TX": 0.8695652173913043,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "CARLA DANIELA SARTORI RIOJA",
                   "TNPS": 0.7884615384615384,
                   "TX": 0.8728813559322034,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.7777000000000001,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "SARTORI RIOJA CARLA DANIELA"
                  },
                  {
                   "ASESOR": "KATHERINE MARIA ANTUANETH RIOS CORDOVA",
                   "TNPS": 0.7785714285714286,
                   "TX": 0.6946778711484594,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.9411,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "RIOS CORDOVA KATHERINE MARIA ANTUANETH"
                  },
                  {
                   "ASESOR": "Brian Joaquin Hermoza Condori",
                   "TNPS": 0.7771739130434783,
                   "TX": 0.7096018735362998,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.85,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "HERMOZA CONDORI BRIAN JOAQUIN"
                  },
                  {
                   "ASESOR": "Denilson Aldair Lopez Zegarra",
                   "TNPS": 0.776595744680851,
                   "TX": 0.6842105263157895,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.791,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "LOPEZ ZEGARRA DENILSON ALDAIR"
                  },
                  {
                   "ASESOR": "ANGELES RUBY ACUÃ‘A CAMPOS",
                   "TNPS": 0.7692307692307693,
                   "TX": 0.7777777777777778,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.6331,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "ACUÑA CAMPOS ANGELES RUBY"
                  },
                  {
                   "ASESOR": "Jennifer Yohanna Sanchez Vergaray",
                   "TNPS": 0.7666666666666667,
                   "TX": 0.6577181208053692,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.6945,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "SANCHEZ VERGARAY JENNIFER YOHANNA"
                  },
                  {
                   "ASESOR": "LUIS ANGEL HUAMAN GALLEGOS",
                   "TNPS": 0.7319587628865979,
                   "TX": 0.6736401673640168,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.7822,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "HUAMAN GALLEGOS LUIS ANGEL"
                  },
                  {
                   "ASESOR": "Yoelys Eugenia Monrroy Monasterio",
                   "TNPS": 0.7297297297297297,
                   "TX": 0.7380952380952381,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.775,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "MONRROY MONASTERIO YOELYS EUGENIA"
                  },
                  {
                   "ASESOR": "Ever Luis Llanos Sparrow",
                   "TNPS": 0.7297297297297297,
                   "TX": 0.6708860759493671,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.82765,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "LLANOS SPARROW EVER LUIS"
                  },
                  {
                   "ASESOR": "ISABEL ZEGARRA CARPIO",
                   "TNPS": 0.717391304347826,
                   "TX": 0.7692307692307693,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.8061999999999999,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "ZEGARRA CARPIO ISABEL"
                  },
                  {
                   "ASESOR": "JIMY GONZALES VASQUEZ",
                   "TNPS": 0.7142857142857143,
                   "TX": 0.45161290322580644,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.6137,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "GONZALES VASQUEZ JIMY"
                  },
                  {
                   "ASESOR": "BRIGUITTE SINDEL SUSANA CHUI ALVAREZ",
                   "TNPS": 0.7037037037037037,
                   "TX": 0.7673267326732673,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.825,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "CHUI ALVAREZ BRIGUITTE SINDEL SUSANA"
                  },
                  {
                   "ASESOR": "MONICA NICOL QUIMPER RAMIREZ",
                   "TNPS": 0.7010309278350515,
                   "TX": 0.7732342007434945,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.925,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "QUIMPER RAMIREZ MONICA NICOL"
                  },
                  {
                   "ASESOR": "Katherine Lourdes Corso Mariano",
                   "TNPS": 0.6923076923076923,
                   "TX": 0.6190476190476191,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.8653,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "CORSO MARIANO KATHERINE LOURDES"
                  },
                  {
                   "ASESOR": "MARYORI ELIZABETH DE LA CRUZ GOMEZ",
                   "TNPS": 0.6907216494845361,
                   "TX": 0.8053691275167785,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.9452,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "DE LA CRUZ GOMEZ MARYORI ELIZABETH"
                  },
                  {
                   "ASESOR": "DIEGO MARCIAL QUIÃ‘ONEZ ALVA",
                   "TNPS": 0.6781609195402298,
                   "TX": 0.6703703703703704,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.89975,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "QUIÑONEZ ALVA DIEGO MARCIAL"
                  },
                  {
                   "ASESOR": "Daniel Alejandro Aliaga Hurtado",
                   "TNPS": 0.6666666666666666,
                   "TX": 0.7666666666666667,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.9042,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "ALIAGA HURTADO DANIEL ALEJANDRO"
                  },
                  {
                   "ASESOR": "Jose Carlos Abanto Arboleda",
                   "TNPS": 0.6507936507936508,
                   "TX": 0.6858316221765913,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.6166833333333334,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "ABANTO ARBOLEDA JOSE CARLOS"
                  },
                  {
                   "ASESOR": "Ledy Enit Fernandez Agurto",
                   "TNPS": 0.6444444444444445,
                   "TX": 0.5056179775280899,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.5695,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "FERNANDEZ AGURTO LEDY ENIT"
                  },
                  {
                   "ASESOR": "BERNARDO FORTUNATO BERNACHEA JAVIER",
                   "TNPS": 0.6373626373626373,
                   "TX": 0.7272727272727273,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.85,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "BERNACHEA JAVIER BERNARDO FORTUNATO"
                  },
                  {
                   "ASESOR": "VICTOR MANUEL PAUCCA HUERTAS",
                   "TNPS": 0.6312849162011173,
                   "TX": 0.8084577114427861,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.9084,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "PAUCCA HUERTAS VICTOR MANUEL"
                  },
                  {
                   "ASESOR": "CARLOS ANTONIO BARRIOS LOLI",
                   "TNPS": 0.6289592760180995,
                   "TX": 0.7430167597765364,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.9528333333333334,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "BARRIOS LOLI CARLOS ANTONIO"
                  },
                  {
                   "ASESOR": "PABLO ALEJANDRO ESPINOLA TORRES",
                   "TNPS": 0.62,
                   "TX": 0.6643356643356644,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.8652500000000001,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "ESPINOLA TORRES PABLO ALEJANDRO"
                  },
                  {
                   "ASESOR": "Gabriela Azucena Quiroz Campos",
                   "TNPS": 0.6024096385542169,
                   "TX": 0.699468085106383,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "Arian Hatsumi Jara Gamarra",
                   "TNPS": 0.5942028985507246,
                   "TX": 0.5421686746987951,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.8843666666666667,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "JARA GAMARRA ARIAN HATSUMI"
                  },
                  {
                   "ASESOR": "BETSABE DAYANNA AROTINCO LOPEZ",
                   "TNPS": 0.5645161290322581,
                   "TX": 0.6655405405405406,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.89735,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "AROTINCO LOPEZ BETSABE DAYANNA"
                  },
                  {
                   "ASESOR": "HILARY MELANIE SANCHEZ CASTILLO",
                   "TNPS": 0.5217391304347826,
                   "TX": 0.9574468085106383,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.91875,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "SANCHEZ CASTILLO HILARY MELANIE"
                  },
                  {
                   "ASESOR": "ANDREA EMILY CATAÃ‘O VILLEGAS",
                   "TNPS": 0.49295774647887325,
                   "TX": 0.6732673267326733,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.89955,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "CATAÑO VILLEGAS ANDREA EMILY"
                  },
                  {
                   "ASESOR": "PIERRE CERDAN GUERREROS",
                   "TNPS": 0.42105263157894735,
                   "TX": 0.7142857142857143,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": 0.7101999999999999,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "CERDAN GUERREROS PIERRE"
                  },
                  {
                   "ASESOR": "Rosalyn Paola Huamani CastaÃ±eda",
                   "TNPS": 0.4,
                   "TX": 0.6825396825396826,
-                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "BERNARDO FORTUNATO BERNACHEA JAVIER",
                   "TNPS": 1,
                   "TX": 0.7272727272727273,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.85,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "BERNACHEA JAVIER BERNARDO FORTUNATO"
                  },
                  {
                   "ASESOR": "Denilson Aldair Lopez Zegarra",
                   "TNPS": 1,
                   "TX": 0.6842105263157895,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.791,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "LOPEZ ZEGARRA DENILSON ALDAIR"
                  },
                  {
                   "ASESOR": "ANGELES RUBY ACUÃ‘A CAMPOS",
                   "TNPS": 1,
                   "TX": 0.7777777777777778,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.6331,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "ACUÑA CAMPOS ANGELES RUBY"
                  },
                  {
                   "ASESOR": "MARLIANA RONDON CASTILLO",
                   "TNPS": 1,
                   "TX": 1,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "CHRISTOPHER GERARD TORRES MALDONADO",
                   "TNPS": 1,
                   "TX": 0.20967741935483872,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8143,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "TORRES MALDONADO CHRISTOPHER GERARD"
                  },
                  {
                   "ASESOR": "MIGUEL ENRIQUE LA ROSA ARESTEGUI",
                   "TNPS": 0.8888888888888888,
                   "TX": 0.8738738738738738,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.9625,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "LA ROSA ARESTEGUI MIGUEL ENRIQUE"
                  },
                  {
                   "ASESOR": "HENRY ENDRIK CHAPOÃ‘AN SANCHEZ",
                   "TNPS": 0.8378378378378378,
                   "TX": 0.6367924528301887,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.833825,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "CHAPOÑAN SANCHEZ HENRY ENDRIK"
                  },
                  {
                   "ASESOR": "Rudy Auristela Davila Irarica",
                   "TNPS": 0.8333333333333334,
                   "TX": 0.6855670103092784,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8173,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "DAVILA IRARICA RUDY AURISTELA"
                  },
                  {
                   "ASESOR": "HENRY MAXIMILIANO CORREA CONDORI",
                   "TNPS": 0.7888888888888889,
                   "TX": 0.782608695652174,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8848,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "CORREA CONDORI HENRY MAXIMILIANO"
                  },
                  {
                   "ASESOR": "Mayra Milagros Merino Hurtado",
                   "TNPS": 0.7872340425531915,
                   "TX": 0.6847457627118644,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.6661,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "MERINO HURTADO MAYRA MILAGROS"
                  },
                  {
                   "ASESOR": "ARYSS ALMENDRA PIZANGO RIVAS",
                   "TNPS": 0.7818181818181819,
                   "TX": 0.3343465045592705,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.7970999999999999,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "PIZANGO RIVAS ARYSS ALMENDRA"
                  },
                  {
                   "ASESOR": "SANDY CELENE HUERE VASCO",
                   "TNPS": 0.7758620689655172,
                   "TX": 0.8208955223880597,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "AURORA ISABEL PEREZ TREVEJO",
                   "TNPS": 0.7631578947368421,
                   "TX": 0.7821782178217822,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8411499999999998,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "PEREZ TREVEJO AURORA ISABEL"
                  },
                  {
                   "ASESOR": "JUDITH DEL PILAR GOMEZ SANCHEZ",
                   "TNPS": 0.7630057803468208,
                   "TX": 0.7093023255813954,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8150999999999999,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "GOMEZ SANCHEZ JUDITH DEL PILAR"
                  },
                  {
                   "ASESOR": "NICOLE ALESSANDRA SOBERON RONDON",
                   "TNPS": 0.7547169811320755,
                   "TX": 0.780952380952381,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.93845,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "SOBERON RONDON NICOLE ALESSANDRA"
                  },
                  {
                   "ASESOR": "DANIEL ALBERTO QUIROZ VILLAFRANCA",
                   "TNPS": 0.7480314960629921,
                   "TX": 0.48349514563106794,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.73495,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "QUIROZ VILLAFRANCA DANIEL ALBERTO"
                  },
                  {
                   "ASESOR": "LIZBETH GUILLEN ZEVALLOS",
                   "TNPS": 0.7382198952879581,
                   "TX": 0.7668711656441718,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8035000000000001,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "GUILLEN ZEVALLOS LIZBETH"
                  },
                  {
                   "ASESOR": "NELLY FARFAN LLOCCLLA",
                   "TNPS": 0.7368421052631579,
                   "TX": 0.7551020408163265,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8714,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "FARFAN LLOCCLLA NELLY"
                  },
                  {
                   "ASESOR": "VIVIANA PILAR ROSALES ANCHANTE",
                   "TNPS": 0.7346938775510204,
                   "TX": 0.7940199335548173,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.92,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "ROSALES ANCHANTE VIVIANA PILAR"
                  },
                  {
                   "ASESOR": "GEORJDY ALAIN RONDOY ORTIZ",
                   "TNPS": 0.7115384615384616,
                   "TX": 0.859504132231405,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8952,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "RONDOY ORTIZ GEORJDY ALAIN"
                  },
                  {
                   "ASESOR": "Aquiles Jeampier Chuan Munguia",
                   "TNPS": 0.7111111111111111,
                   "TX": 0.7777777777777778,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8040800000000001,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "CHUAN MUNGUIA AQUILES JEAMPIER"
                  },
                  {
                   "ASESOR": "Isabel Cristina Moran Rosales",
                   "TNPS": 0.7055214723926381,
                   "TX": 0.7166392092257001,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.71634,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "MORAN ROSALES ISABEL CRISTINA"
                  },
                  {
                   "ASESOR": "MARIA ISABEL CHAVEZ OLANO",
                   "TNPS": 0.7007874015748031,
                   "TX": 0.8629629629629629,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.9036,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "CHAVEZ OLANO MARIA ISABEL"
                  },
                  {
                   "ASESOR": "CARLA NELIDAD VILLALOBOS ZULOETA",
                   "TNPS": 0.6989247311827957,
                   "TX": 0.6440129449838188,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8062999999999999,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "VILLALOBOS ZULOETA CARLA NELIDAD"
                  },
                  {
                   "ASESOR": "KATIA SARITA ZAPATA MORALES",
                   "TNPS": 0.6578947368421053,
                   "TX": 0.8586956521739131,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.87835,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "ZAPATA MORALES KATIA SARITA"
                  },
                  {
                   "ASESOR": "Fabrrizio Del piero Quezada Aguilar",
                   "TNPS": 0.6407766990291263,
                   "TX": 0.7649122807017544,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.7147333333333333,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "QUEZADA AGUILAR FABRRIZIO DEL PIERO"
                  },
                  {
                   "ASESOR": "JANET ESTEFANIA ORE QQUEHUE",
                   "TNPS": 0.6388888888888888,
                   "TX": 0.6746987951807228,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "GIANFRANCO WILDER QUISOCALA MAMANI",
                   "TNPS": 0.6323529411764706,
                   "TX": 0.8282208588957055,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.8587,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "QUISOCALA MAMANI GIANFRANCO WILDER"
                  },
                  {
                   "ASESOR": "CARLOS CARLOS ORDINOLA ORDINOLA",
                   "TNPS": 0.6296296296296297,
                   "TX": 0.8035714285714286,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "DIANA MIRELLA QUINTANA DURAND",
                   "TNPS": 0.6031746031746031,
                   "TX": 0.8081761006289309,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.820275,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "QUINTANA DURAND DIANA MIRELLA"
                  },
                  {
                   "ASESOR": "Nicolas Jesuz Ordinola Diaz",
                   "TNPS": 0.6,
                   "TX": 0.6952380952380952,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "ORDINOLA DIAZ NICOLAS JESUZ"
                  },
                  {
                   "ASESOR": "JEREMÃAS GALVEZ JUAREZ",
                   "TNPS": 0.5824175824175825,
                   "TX": 0.734375,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.7397,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "GALVEZ JUAREZ JEREMÍAS"
                  },
                  {
                   "ASESOR": "SONIA JANET GISMONDI ESPINOZA",
                   "TNPS": 0.5598290598290598,
                   "TX": 0.7215815485996705,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.9005375,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "GISMONDI ESPINOZA SONIA JANET"
                  },
                  {
                   "ASESOR": "FLOR DE MARIA FERNANDEZ CORREA",
                   "TNPS": 0.5454545454545454,
                   "TX": 0.7127659574468085,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "FERNANDEZ CORREA FLOR DE MARIA"
                  },
                  {
                   "ASESOR": "JUAN CARLOS SOSA RETAMOZO",
                   "TNPS": 0.5441176470588235,
                   "TX": 0.4692556634304207,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.7614500000000001,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "SOSA RETAMOZO JUAN CARLOS"
                  },
                  {
                   "ASESOR": "SANTOS ENRIQUE DIAZ MEZA",
                   "TNPS": 0.5178571428571429,
                   "TX": 0.6978021978021978,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.85985,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "DIAZ MEZA SANTOS ENRIQUE"
                  },
                  {
                   "ASESOR": "NAOMI CARMEN OCHOA OCHOA",
                   "TNPS": 0.42857142857142855,
                   "TX": 0.6451612903225806,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": "#N\/A",
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "No encontrado"
                  },
                  {
                   "ASESOR": "KAREN ROCIO ROCIO PEREYRA DIESBACK",
                   "TNPS": 0.35294117647058826,
                   "TX": 0.7727272727272727,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.90625,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "PEREYRA DIESBACK KAREN ROCIO ROCIO"
                  },
                  {
                   "ASESOR": "Janilva Octavia Huaman Aramburu",
                   "TNPS": 0.1,
                   "TX": 0.7647058823529411,
-                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                  "CALIDAD": 0.6740999999999999,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
+                  "NOMBRE CORRECTO": "HUAMAN ARAMBURU JANILVA OCTAVIA"
                  }
-            ] 
-        };
+             /* ... resto de datos con CALIDAD ... */
+        ]};
+        
         const metaTNPS = 73;
         const metaTX = 79;
+        const metaCalidad = 84;
 
         function cargarSupervisores() {
             const supervisores = [...new Set(data.Hoja2.map(item => item.SUPERVISOR))];
@@ -1174,36 +1509,38 @@
             
             const tnps = (datos.TNPS * 100).toFixed(1);
             const tx = (datos.TX * 100).toFixed(1);
+            const calidad = (datos.CALIDAD * 100).toFixed(1);
             
-            actualizarMetricas(tnps, tx);
-            actualizarGrafico(tnps, tx);
-            mostrarAlerta(tnps, tx);
+            actualizarMetricas(tnps, tx, calidad);
+            actualizarGrafico(tnps, tx, calidad);
+            mostrarAlerta(tnps, tx, calidad);
         }
 
-        function actualizarMetricas(tnps, tx) {
+        function actualizarMetricas(tnps, tx, calidad) {
             document.getElementById('tnps-value').textContent = `${tnps}%`;
             document.getElementById('tx-value').textContent = `${tx}%`;
+            document.getElementById('calidad-value').textContent = `${calidad}%`;
         }
 
-        function actualizarGrafico(tnps, tx) {
+        function actualizarGrafico(tnps, tx, calidad) {
             const ctx = document.getElementById('chart').getContext('2d');
             if(myChart) myChart.destroy();
 
             myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['TNPS', 'TX'],
+                    labels: ['TNPS', 'TX', 'Calidad'],
                     datasets: [{
                         label: 'Actual',
-                        data: [tnps, tx],
-                        backgroundColor: [ '#3498db', '#2ecc71' ],
+                        data: [tnps, tx, calidad],
+                        backgroundColor: [ '#3498db', '#2ecc71', '#9b59b6' ],
                         borderWidth: 0,
                         borderRadius: 4
                     },
                     {
                         label: 'Meta',
-                        data: [metaTNPS, metaTX],
-                        backgroundColor: [ '#e74c3c', '#e74c3c' ],
+                        data: [metaTNPS, metaTX, metaCalidad],
+                        backgroundColor: '#e74c3c',
                         type: 'line',
                         borderColor: '#e74c3c',
                         borderWidth: 2,
@@ -1239,14 +1576,19 @@
             });
         }
 
-        function mostrarAlerta(tnps, tx) {
+        function mostrarAlerta(tnps, tx, calidad) {
             const alerta = document.getElementById('alert');
-            alerta.className = 'alert ' + (tnps >= metaTNPS && tx >= metaTX ? 'success' : 'warning');
+            const cumplido = tnps >= metaTNPS && tx >= metaTX && calidad >= metaCalidad;
+            
+            alerta.className = 'alert ' + (cumplido ? 'success' : 'warning');
             alerta.innerHTML = `
-                ${tnps >= metaTNPS && tx >= metaTX ? '✓' : '⚠'} 
-                ${tnps >= metaTNPS && tx >= metaTX 
-                    ? '¡Objetivos cumplidos!' 
-                    : `Necesitas mejorar: ${tnps < metaTNPS ? `TNPS +${(metaTNPS - tnps).toFixed(1)}% ` : ''}${tx < metaTX ? `TX +${(metaTX - tx).toFixed(1)}%` : ''}`}
+                ${cumplido ? '✓' : '⚠'} 
+                ${cumplido 
+                    ? '¡Todos los objetivos cumplidos!' 
+                    : `Necesitas mejorar: 
+                        ${tnps < metaTNPS ? `TNPS +${(metaTNPS - tnps).toFixed(1)}% ` : ''}
+                        ${tx < metaTX ? `TX +${(metaTX - tx).toFixed(1)}% ` : ''}
+                        ${calidad < metaCalidad ? `Calidad +${(metaCalidad - calidad).toFixed(1)}%` : ''}`}
             `;
         }
 
@@ -1256,7 +1598,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Indicadores actualizados</h1>
+            <h1>Indicadores de desempeño</h1>
         </div>
         
         <div class="filters">
@@ -1282,6 +1624,11 @@
                 <div>TX Actual</div>
                 <div id="tx-value" class="metric-value">-</div>
                 <div class="meta">Meta: 79%</div>
+            </div>
+            <div class="metric-card">
+                <div>Calidad</div>
+                <div id="calidad-value" class="metric-value">-</div>
+                <div class="meta">Meta: 85%</div>
             </div>
         </div>
 
