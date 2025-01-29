@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta TNPS y TX</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,11 +21,11 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 900px;
             margin: 0 auto;
             background-color: #fff;
             border-radius: 8px;
-            padding: 20px;
+            padding: 30px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -48,38 +49,34 @@
             border-color: #3498db;
         }
 
-        #tnpsDisplay, #txDisplay {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
-            padding: 10px;
-            background-color: #ecf9ec;
-            border-radius: 5px;
-            display: none; /* Inicialmente oculto */
-        }
-
         .info {
             text-align: center;
             color: #7f8c8d;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-            display: block;
-            width: 100%;
+            font-size: 0.9rem;
             margin-top: 20px;
         }
 
-        .btn:hover {
-            background-color: #2980b9;
+        #chart-container {
+            width: 100%;
+            height: 400px;
+            margin-top: 40px;
         }
+
+        #message {
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .warning {
+            color: #e74c3c;
+        }
+
+        .congratulations {
+            color: #2ecc71;
+        }
+
     </style>
     <script>
         const data = {
@@ -1101,6 +1098,9 @@
             ]
         };
 
+        const metaTNPS = 73; // Meta TNPS: 73%
+        const metaTX = 79;  // Meta TX: 79%
+
         function cargarSupervisores() {
             const supervisores = [...new Set(data.Hoja2.map(item => item.SUPERVISOR))];
             const supervisorSelect = document.getElementById('supervisor');
@@ -1129,39 +1129,100 @@
         function mostrarResultados() {
             const asesor = document.getElementById('asesor').value;
             const result = data.Hoja2.find(item => item.ASESOR === asesor);
-            const tnpsDisplay = document.getElementById('tnpsDisplay');
-            const txDisplay = document.getElementById('txDisplay');
 
             if (result) {
-                const tnpsPercentage = (result.TNPS * 100).toFixed(2); // Convertir a porcentaje con dos decimales
-                const txPercentage = (result.TX * 100).toFixed(2);
-
-                // Cambiar el color basado en el porcentaje
-                if (tnpsPercentage < 73) {
-                    tnpsDisplay.style.color = 'red'; // Si es menor a 73%, mostrar en rojo
-                } else {
-                    tnpsDisplay.style.color = 'green'; // Si es mayor o igual a 73%, mostrar en verde
-                }
-
-
-                // Cambiar el color basado en el porcentaje
-                if (txPercentage < 79) {
-                    txDisplay.style.color = 'red'; // Si es menor a 73%, mostrar en rojo
-                } else {
-                    txDisplay.style.color = 'green'; // Si es mayor o igual a 73%, mostrar en verde
-                }
-
-                // Mostrar TNPS
-                tnpsDisplay.textContent = `TNPS: ${tnpsPercentage}%`;
-                tnpsDisplay.style.display = 'block';
-
-                // Mostrar TX
-                txDisplay.textContent = `TX: ${txPercentage}%`;
-                txDisplay.style.display = 'block';
-            } else {
-                tnpsDisplay.style.display = 'none'; // Ocultar si no hay resultado
-                txDisplay.style.display = 'none'; // Ocultar si no hay resultado
+                mostrarGrafico(result);
             }
+        }
+
+        function mostrarGrafico(asesor) {
+            const tnpsPercentage = (asesor.TNPS * 100).toFixed(2);
+            const txPercentage = (asesor.TX * 100).toFixed(2);
+            const ctx = document.getElementById('chart').getContext('2d');
+
+            const missingTNPS = metaTNPS - tnpsPercentage;
+            const missingTX = metaTX - txPercentage;
+
+            let message = '';
+
+            if (tnpsPercentage < metaTNPS || txPercentage < metaTX) {
+                message = '¡Necesitas mejorar! Te falta ';
+                if (tnpsPercentage < metaTNPS) message += `TNPS: ${missingTNPS.toFixed(2)}% `;
+                if (txPercentage < metaTX) message += `TX: ${missingTX.toFixed(2)}%`;
+                document.getElementById('message').className = 'warning';
+            } else {
+                message = '¡Felicidades! Has superado la meta.';
+                document.getElementById('message').className = 'congratulations';
+            }
+
+            document.getElementById('message').textContent = message;
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Asesor'],
+                    datasets: [{
+                        label: 'TNPS',
+                        data: [tnpsPercentage],
+                        backgroundColor: ['#3498db'], // Azul para el asesor
+                        borderColor: ['#2980b9'],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'TX',
+                        data: [txPercentage],
+                        backgroundColor: ['#2ecc71'], // Verde para el asesor
+                        borderColor: ['#27ae60'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 10
+                            },
+                            grid: {
+                                borderColor: '#fff',
+                                lineWidth: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        annotation: {
+                            annotations: {
+                                lineTNPS: {
+                                    type: 'line',
+                                    yMin: metaTNPS,
+                                    yMax: metaTNPS,
+                                    borderColor: 'red',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Meta TNPS',
+                                        enabled: true,
+                                        position: 'start'
+                                    }
+                                },
+                                lineTX: {
+                                    type: 'line',
+                                    yMin: metaTX,
+                                    yMax: metaTX,
+                                    borderColor: 'red',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Meta TX',
+                                        enabled: true,
+                                        position: 'start'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         window.onload = function() {
@@ -1179,17 +1240,17 @@
             <option value="">Selecciona un supervisor</option>
         </select>
 
-        <br>
-
         <label for="asesor">Selecciona un asesor:</label>
         <select id="asesor" onchange="mostrarResultados()">
             <option value="">Selecciona un asesor</option>
         </select>
 
-        <div id="tnpsDisplay"></div>
-        <div id="txDisplay"></div>
+        <div id="chart-container">
+            <canvas id="chart"></canvas>
+        </div>
 
-        <p class="info">Recuerda tomarle captura a tus indicadores y mostrarle a tu supervisor</p>
+        <p id="message" class="info"></p>
+
     </div>
 
 </body>
