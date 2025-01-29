@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta TNPS y TX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        #tnpsDisplay, #txDisplay {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            background-color: #ecf9ec;
+            border-radius: 5px;
+            display: none; /* Inicialmente oculto */
+        }
+
+        .info {
+            text-align: center;
+            color: #7f8c8d;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+    <script>
+        const data = {
+            "Hoja2":[
+                 {
+                  "ASESOR": "Jackeline Judith Gutierrez Carrillo",
+                  "TNPS": 1,
+                  "TX": 0.7368421052631579,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "HENRY ENDRIK CHAPOÃ‘AN SANCHEZ",
+                  "TNPS": 1,
+                  "TX": 0.6367924528301887,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "Roxana Elizabeth Adrianzen Leon",
+                  "TNPS": 1,
+                  "TX": 0.7247706422018348,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "Isabel Cristina Moran Rosales",
+                  "TNPS": 0.8461538461538461,
+                  "TX": 0.7166392092257001,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "CESAR RODRIGO VARGAS COBOS",
+                  "TNPS": 0.8321678321678322,
+                  "TX": 0.8100358422939068,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "MIGUEL ENRIQUE LA ROSA ARESTEGUI",
+                  "TNPS": 0.8242424242424242,
+                  "TX": 0.8738738738738738,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "EVELIN ROXANA PAIVA ESTEVEZ",
+                  "TNPS": 0.7868852459016393,
+                  "TX": 0.74375,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "ANDREA ELIZABETH MARCELO ESCUDERO",
+                  "TNPS": 0.7857142857142857,
+                  "TX": 0.7369519832985386,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "SHARON MISHEL NUNTA CURAHUA",
+                  "TNPS": 0.7637362637362637,
+                  "TX": 0.7065527065527065,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "MELISSA TORRES QUISPE",
+                  "TNPS": 0.7596153846153846,
+                  "TX": 0.7624521072796935,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "LIZBETH GUILLEN ZEVALLOS",
+                  "TNPS": 0.75,
+                  "TX": 0.7668711656441718,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "MARIA ALEJANDRA GUEVARA TEMOCHE",
+                  "TNPS": 0.7456896551724138,
+                  "TX": 0.7880539499036608,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "AURORA ISABEL PEREZ TREVEJO",
+                  "TNPS": 0.7361111111111112,
+                  "TX": 0.7821782178217822,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "MARÃA ISABEL GARCÃA CHAPOÃ‘AN",
+                  "TNPS": 0.725,
+                  "TX": 0.8081264108352144,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "JACQUELINE JESUS SANTOS GAMARRA DE HERMITAÃ‘O",
+                  "TNPS": 0.711864406779661,
+                  "TX": 0.7280334728033473,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "Mayra Milagros Merino Hurtado",
+                  "TNPS": 0.7096774193548387,
+                  "TX": 0.6847457627118644,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "KAREN ROCIO ROCIO PEREYRA DIESBACK",
+                  "TNPS": 0.7087378640776699,
+                  "TX": 0.7727272727272727,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "ROGER FELIX VALER ROJAS",
+                  "TNPS": 0.6878306878306878,
+                  "TX": 0.7424960505529226,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "JULISSA CAROLINA VASQUEZ PINTO",
+                  "TNPS": 0.6859504132231405,
+                  "TX": 0.777027027027027,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "DIANA LISBETH FLORES OLIVOS",
+                  "TNPS": 0.6834532374100719,
+                  "TX": 0.7373417721518988,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "NELLY FARFAN LLOCCLLA",
+                  "TNPS": 0.6666666666666666,
+                  "TX": 0.7551020408163265,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "YOSELYN LORENA MORILLO LUCENA",
+                  "TNPS": 0.6666666666666666,
+                  "TX": 0.5433436532507739,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "NICOLE SOPHIE SANTISTEBAN DÃVILA",
+                  "TNPS": 0.6666666666666666,
+                  "TX": 0.7831325301204819,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "GISELA MARIA PAREDES RAFAEL",
+                  "TNPS": 0.6385542168674698,
+                  "TX": 0.7,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "FRANCISCO JAVIER AQUINO LA ROSA",
+                  "TNPS": 0.6349206349206349,
+                  "TX": 0.780327868852459,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "SERGIO MANUEL VENTURA CHAMBI",
+                  "TNPS": 0.6336633663366337,
+                  "TX": 0.8924731182795699,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "MILUSKA CHEYLA SOBRINO VASQUEZ",
+                  "TNPS": 0.6296296296296297,
+                  "TX": 0.8251121076233184,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "GINA MARISOL AGUILAR YBAÃ‘EZ",
+                  "TNPS": 0.6056338028169014,
+                  "TX": 0.7897623400365631,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "Leydy Laura Lozano Laurente",
+                  "TNPS": 0.577639751552795,
+                  "TX": 0.6491525423728813,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "CARLA NELIDAD VILLALOBOS ZULOETA",
+                  "TNPS": 0.5443037974683544,
+                  "TX": 0.6440129449838188,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "HILARY MELANIE SANCHEZ CASTILLO",
+                  "TNPS": 0.4962962962962963,
+                  "TX": 0.9574468085106383,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "LAURA JANETH MENDOZA ROMANI",
+                  "TNPS": 0.46113989637305697,
+                  "TX": 0.7658227848101266,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "Fabrrizio Del piero Quezada Aguilar",
+                  "TNPS": 0.1937984496124031,
+                  "TX": 0.7649122807017544,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "FLOR DE MARIA FERNANDEZ CORREA",
+                  "TNPS": 0,
+                  "TX": 0.7127659574468085,
+                  "SUPERVISOR": "HERNANDEZ AHUANARI ANYELI NAOMI"
+                 },
+                 {
+                  "ASESOR": "Rudy Auristela Davila Irarica",
+                  "TNPS": 0.875,
+                  "TX": 0.6855670103092784,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "ARYSS ALMENDRA PIZANGO RIVAS",
+                  "TNPS": 0.8723404255319149,
+                  "TX": 0.3343465045592705,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Ever Luis Llanos Sparrow",
+                  "TNPS": 0.8285714285714286,
+                  "TX": 0.6708860759493671,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Roxana Elizabeth Adrianzen Leon",
+                  "TNPS": 0.8205128205128205,
+                  "TX": 0.7247706422018348,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Jackeline Judith Gutierrez Carrillo",
+                  "TNPS": 0.8181818181818182,
+                  "TX": 0.7368421052631579,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "GEORJDY ALAIN RONDOY ORTIZ",
+                  "TNPS": 0.8032786885245902,
+                  "TX": 0.859504132231405,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Yoelys Eugenia Monrroy Monasterio",
+                  "TNPS": 0.8,
+                  "TX": 0.7380952380952381,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "JIMY GONZALES VASQUEZ",
+                  "TNPS": 0.7762237762237763,
+                  "TX": 0.45161290322580644,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "ROCIO DEL PILAR CHAVEZ CARRERA DE HARO",
+                  "TNPS": 0.7710843373493976,
+                  "TX": 0.8727272727272727,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Katherine Lourdes Corso Mariano",
+                  "TNPS": 0.7647058823529411,
+                  "TX": 0.6190476190476191,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Karolayn Rasshell Salazar Diaz",
+                  "TNPS": 0.7456140350877193,
+                  "TX": 0.7483660130718954,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Daniel Alejandro Aliaga Hurtado",
+                  "TNPS": 0.7439613526570048,
+                  "TX": 0.7666666666666667,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "NICOLE SOPHIE SANTISTEBAN DÃVILA",
+                  "TNPS": 0.7386363636363636,
+                  "TX": 0.7831325301204819,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "MARIA ISABEL CHAVEZ OLANO",
+                  "TNPS": 0.7345132743362832,
+                  "TX": 0.8629629629629629,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "LUCIA ESTHER DURAN GARCIA",
+                  "TNPS": 0.7282608695652174,
+                  "TX": 0.7387755102040816,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "IAM ALEXIS CASTRO FUENTES",
+                  "TNPS": 0.7195121951219512,
+                  "TX": 0.7298850574712644,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Jenny Lizbeth Reto Chumacero",
+                  "TNPS": 0.7093023255813954,
+                  "TX": 0.6911764705882353,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "NAHOMI FABIOLA ROSALES PEREZ",
+                  "TNPS": 0.6975308641975309,
+                  "TX": 0.7306733167082294,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "ANDREA ELIZABETH MARCELO ESCUDERO",
+                  "TNPS": 0.6962616822429907,
+                  "TX": 0.7369519832985386,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Helber Oswaldo Calderon Soto",
+                  "TNPS": 0.6904761904761905,
+                  "TX": 0.7591836734693878,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "CARLA DANIELA SARTORI RIOJA",
+                  "TNPS": 0.6779661016949152,
+                  "TX": 0.8728813559322034,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Nicolas Jesuz Ordinola Diaz",
+                  "TNPS": 0.6732673267326733,
+                  "TX": 0.6952380952380952,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "CHRISTOPHER GERARD TORRES MALDONADO",
+                  "TNPS": 0.6666666666666666,
+                  "TX": 0.20967741935483872,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Arian Hatsumi Jara Gamarra",
+                  "TNPS": 0.6666666666666666,
+                  "TX": 0.5421686746987951,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "ISABEL ZEGARRA CARPIO",
+                  "TNPS": 0.6379310344827587,
+                  "TX": 0.7692307692307693,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "ANGELES RUBY ACUÃ‘A CAMPOS",
+                  "TNPS": 0.6153846153846154,
+                  "TX": 0.7777777777777778,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "PIERRE CERDAN GUERREROS",
+                  "TNPS": 0.6063829787234043,
+                  "TX": 0.7142857142857143,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "SANTOS ENRIQUE DIAZ MEZA",
+                  "TNPS": 0.5882352941176471,
+                  "TX": 0.6978021978021978,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Janilva Octavia Huaman Aramburu",
+                  "TNPS": 0.5510204081632653,
+                  "TX": 0.7647058823529411,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "DIANA MIRELLA QUINTANA DURAND",
+                  "TNPS": 0.5444444444444444,
+                  "TX": 0.8081761006289309,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "Valeria Giovanna Rospigliosi Leon",
+                  "TNPS": 0.5434782608695652,
+                  "TX": 0.6951672862453532,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "SONIA JANET GISMONDI ESPINOZA",
+                  "TNPS": 0.5,
+                  "TX": 0.7215815485996705,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "DANIEL ALBERTO QUIROZ VILLAFRANCA",
+                  "TNPS": 0.5,
+                  "TX": 0.48349514563106794,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "MONICA NICOL QUIMPER RAMIREZ",
+                  "TNPS": 0.42857142857142855,
+                  "TX": 0.7732342007434945,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "BETSABE DAYANNA AROTINCO LOPEZ",
+                  "TNPS": 0.4,
+                  "TX": 0.6655405405405406,
+                  "SUPERVISOR": "VERASTEGUI TANTAVILCA STEPHANIE DJAMILA"
+                 },
+                 {
+                  "ASESOR": "NAOMI CARMEN OCHOA OCHOA",
+                  "TNPS": 0.8666666666666667,
+                  "TX": 0.6451612903225806,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "VIVIANA PILAR ROSALES ANCHANTE",
+                  "TNPS": 0.8461538461538461,
+                  "TX": 0.7940199335548173,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "SANDY CELENE HUERE VASCO",
+                  "TNPS": 0.8260869565217391,
+                  "TX": 0.8208955223880597,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "GABRIEL EDUARDO LUNA VICTORIA VARGAS",
+                  "TNPS": 0.7903225806451613,
+                  "TX": 0.722488038277512,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "MARYCIELO GRETELL SAENZ PEÃ‘A",
+                  "TNPS": 0.7865168539325843,
+                  "TX": 0.7142857142857143,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "DANUSKA LOZANO LOZANO MENEZ",
+                  "TNPS": 0.7714285714285715,
+                  "TX": 0.7777777777777778,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "NICOLE ALESSANDRA SOBERON RONDON",
+                  "TNPS": 0.7540983606557377,
+                  "TX": 0.780952380952381,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "KIMBERLIE ASHLEY GARRIDO CARDENAS",
+                  "TNPS": 0.7419354838709677,
+                  "TX": 0.7123287671232876,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "PERCY VILCA LLANTO",
+                  "TNPS": 0.7391304347826086,
+                  "TX": 0.6896551724137931,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "AMANDA GRACE ZEGARRA CARAHUATAY",
+                  "TNPS": 0.7362637362637363,
+                  "TX": 0.6796407185628742,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "ALEJANDRA RAFAELA LATURE OTOYA",
+                  "TNPS": 0.7317073170731707,
+                  "TX": 0.6120401337792643,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "GIANFRANCO WILDER QUISOCALA MAMANI",
+                  "TNPS": 0.723404255319149,
+                  "TX": 0.8282208588957055,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "ADRIANA ANGELA CARLOS SANCHEZ",
+                  "TNPS": 0.7176470588235294,
+                  "TX": 0.6321428571428571,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "JHONATAN ISAIAS MEDINA REVOLLEDO",
+                  "TNPS": 0.7168141592920354,
+                  "TX": 0.7243816254416962,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "MARTIN JOE PRADO GARCIA",
+                  "TNPS": 0.7058823529411765,
+                  "TX": 0.8123324396782842,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "LUANA VALENTINA CALDERON MOSCOSO",
+                  "TNPS": 0.6989247311827957,
+                  "TX": 0.6929133858267716,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "HENRY MAXIMILIANO CORREA CONDORI",
+                  "TNPS": 0.6923076923076923,
+                  "TX": 0.782608695652174,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "KATIA SARITA ZAPATA MORALES",
+                  "TNPS": 0.6666666666666666,
+                  "TX": 0.8586956521739131,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "FIORELLA ARACELY MOTTA OLAYA",
+                  "TNPS": 0.6633663366336634,
+                  "TX": 0.6565349544072948,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "LUCERO YUDITH MIRANDA PEÃ‘A",
+                  "TNPS": 0.647887323943662,
+                  "TX": 0.6532846715328468,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "JEREMÃAS GALVEZ JUAREZ",
+                  "TNPS": 0.6307692307692307,
+                  "TX": 0.734375,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "ALESSANDRA CUBA BEDOYA",
+                  "TNPS": 0.6,
+                  "TX": 0.7329545454545454,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "ELMER ALEJANDRO REMIGIO MARTINEZ",
+                  "TNPS": 0.5974025974025974,
+                  "TX": 0.7430939226519337,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "JEANPIER ADRIAN PARADO COLLAHUACHO",
+                  "TNPS": 0.5377358490566038,
+                  "TX": 0.8156424581005587,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "ANTHONY JAMES PORRAS VALLEJOS",
+                  "TNPS": 0.5294117647058824,
+                  "TX": 0.5502008032128514,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "JUAN CARLOS SOSA RETAMOZO",
+                  "TNPS": 0.4722222222222222,
+                  "TX": 0.4692556634304207,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "SEBASTIAN ALESSANDRO VILLACORTA CHAVEZ",
+                  "TNPS": 0.4318181818181818,
+                  "TX": 0.6258503401360545,
+                  "SUPERVISOR": "ULFFE QUISPE IAN ALEXEI"
+                 },
+                 {
+                  "ASESOR": "SUSAN ABIGAIL CHAVEZ SANTA MARIA",
+                  "TNPS": 0.8235294117647058,
+                  "TX": 0.7555555555555555,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "JULISSA CAROL ZUÃ‘IGA NARVAEZ",
+                  "TNPS": 0.8108108108108109,
+                  "TX": 0.810077519379845,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Deisy Susana Montes Guzman",
+                  "TNPS": 0.7945205479452054,
+                  "TX": 0.6708860759493671,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "LUIS CESAR PEREDA ARIAS",
+                  "TNPS": 0.7906976744186046,
+                  "TX": 0.8695652173913043,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "CARLA DANIELA SARTORI RIOJA",
+                  "TNPS": 0.7884615384615384,
+                  "TX": 0.8728813559322034,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "KATHERINE MARIA ANTUANETH RIOS CORDOVA",
+                  "TNPS": 0.7785714285714286,
+                  "TX": 0.6946778711484594,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Brian Joaquin Hermoza Condori",
+                  "TNPS": 0.7771739130434783,
+                  "TX": 0.7096018735362998,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Denilson Aldair Lopez Zegarra",
+                  "TNPS": 0.776595744680851,
+                  "TX": 0.6842105263157895,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "ANGELES RUBY ACUÃ‘A CAMPOS",
+                  "TNPS": 0.7692307692307693,
+                  "TX": 0.7777777777777778,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Jennifer Yohanna Sanchez Vergaray",
+                  "TNPS": 0.7666666666666667,
+                  "TX": 0.6577181208053692,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "LUIS ANGEL HUAMAN GALLEGOS",
+                  "TNPS": 0.7319587628865979,
+                  "TX": 0.6736401673640168,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Yoelys Eugenia Monrroy Monasterio",
+                  "TNPS": 0.7297297297297297,
+                  "TX": 0.7380952380952381,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Ever Luis Llanos Sparrow",
+                  "TNPS": 0.7297297297297297,
+                  "TX": 0.6708860759493671,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "ISABEL ZEGARRA CARPIO",
+                  "TNPS": 0.717391304347826,
+                  "TX": 0.7692307692307693,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "JIMY GONZALES VASQUEZ",
+                  "TNPS": 0.7142857142857143,
+                  "TX": 0.45161290322580644,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "BRIGUITTE SINDEL SUSANA CHUI ALVAREZ",
+                  "TNPS": 0.7037037037037037,
+                  "TX": 0.7673267326732673,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "MONICA NICOL QUIMPER RAMIREZ",
+                  "TNPS": 0.7010309278350515,
+                  "TX": 0.7732342007434945,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Katherine Lourdes Corso Mariano",
+                  "TNPS": 0.6923076923076923,
+                  "TX": 0.6190476190476191,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "MARYORI ELIZABETH DE LA CRUZ GOMEZ",
+                  "TNPS": 0.6907216494845361,
+                  "TX": 0.8053691275167785,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "DIEGO MARCIAL QUIÃ‘ONEZ ALVA",
+                  "TNPS": 0.6781609195402298,
+                  "TX": 0.6703703703703704,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Daniel Alejandro Aliaga Hurtado",
+                  "TNPS": 0.6666666666666666,
+                  "TX": 0.7666666666666667,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Jose Carlos Abanto Arboleda",
+                  "TNPS": 0.6507936507936508,
+                  "TX": 0.6858316221765913,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Ledy Enit Fernandez Agurto",
+                  "TNPS": 0.6444444444444445,
+                  "TX": 0.5056179775280899,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "BERNARDO FORTUNATO BERNACHEA JAVIER",
+                  "TNPS": 0.6373626373626373,
+                  "TX": 0.7272727272727273,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "VICTOR MANUEL PAUCCA HUERTAS",
+                  "TNPS": 0.6312849162011173,
+                  "TX": 0.8084577114427861,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "CARLOS ANTONIO BARRIOS LOLI",
+                  "TNPS": 0.6289592760180995,
+                  "TX": 0.7430167597765364,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "PABLO ALEJANDRO ESPINOLA TORRES",
+                  "TNPS": 0.62,
+                  "TX": 0.6643356643356644,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Gabriela Azucena Quiroz Campos",
+                  "TNPS": 0.6024096385542169,
+                  "TX": 0.699468085106383,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Arian Hatsumi Jara Gamarra",
+                  "TNPS": 0.5942028985507246,
+                  "TX": 0.5421686746987951,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "BETSABE DAYANNA AROTINCO LOPEZ",
+                  "TNPS": 0.5645161290322581,
+                  "TX": 0.6655405405405406,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "HILARY MELANIE SANCHEZ CASTILLO",
+                  "TNPS": 0.5217391304347826,
+                  "TX": 0.9574468085106383,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "ANDREA EMILY CATAÃ‘O VILLEGAS",
+                  "TNPS": 0.49295774647887325,
+                  "TX": 0.6732673267326733,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "PIERRE CERDAN GUERREROS",
+                  "TNPS": 0.42105263157894735,
+                  "TX": 0.7142857142857143,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "Rosalyn Paola Huamani CastaÃ±eda",
+                  "TNPS": 0.4,
+                  "TX": 0.6825396825396826,
+                  "SUPERVISOR": "SULCA VEGA JULIO LEONARDO"
+                 },
+                 {
+                  "ASESOR": "BERNARDO FORTUNATO BERNACHEA JAVIER",
+                  "TNPS": 1,
+                  "TX": 0.7272727272727273,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "Denilson Aldair Lopez Zegarra",
+                  "TNPS": 1,
+                  "TX": 0.6842105263157895,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "ANGELES RUBY ACUÃ‘A CAMPOS",
+                  "TNPS": 1,
+                  "TX": 0.7777777777777778,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "MARLIANA RONDON CASTILLO",
+                  "TNPS": 1,
+                  "TX": 1,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "CHRISTOPHER GERARD TORRES MALDONADO",
+                  "TNPS": 1,
+                  "TX": 0.20967741935483872,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "MIGUEL ENRIQUE LA ROSA ARESTEGUI",
+                  "TNPS": 0.8888888888888888,
+                  "TX": 0.8738738738738738,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "HENRY ENDRIK CHAPOÃ‘AN SANCHEZ",
+                  "TNPS": 0.8378378378378378,
+                  "TX": 0.6367924528301887,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "Rudy Auristela Davila Irarica",
+                  "TNPS": 0.8333333333333334,
+                  "TX": 0.6855670103092784,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "HENRY MAXIMILIANO CORREA CONDORI",
+                  "TNPS": 0.7888888888888889,
+                  "TX": 0.782608695652174,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "Mayra Milagros Merino Hurtado",
+                  "TNPS": 0.7872340425531915,
+                  "TX": 0.6847457627118644,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "ARYSS ALMENDRA PIZANGO RIVAS",
+                  "TNPS": 0.7818181818181819,
+                  "TX": 0.3343465045592705,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "SANDY CELENE HUERE VASCO",
+                  "TNPS": 0.7758620689655172,
+                  "TX": 0.8208955223880597,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "AURORA ISABEL PEREZ TREVEJO",
+                  "TNPS": 0.7631578947368421,
+                  "TX": 0.7821782178217822,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "JUDITH DEL PILAR GOMEZ SANCHEZ",
+                  "TNPS": 0.7630057803468208,
+                  "TX": 0.7093023255813954,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "NICOLE ALESSANDRA SOBERON RONDON",
+                  "TNPS": 0.7547169811320755,
+                  "TX": 0.780952380952381,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "DANIEL ALBERTO QUIROZ VILLAFRANCA",
+                  "TNPS": 0.7480314960629921,
+                  "TX": 0.48349514563106794,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "LIZBETH GUILLEN ZEVALLOS",
+                  "TNPS": 0.7382198952879581,
+                  "TX": 0.7668711656441718,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "NELLY FARFAN LLOCCLLA",
+                  "TNPS": 0.7368421052631579,
+                  "TX": 0.7551020408163265,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "VIVIANA PILAR ROSALES ANCHANTE",
+                  "TNPS": 0.7346938775510204,
+                  "TX": 0.7940199335548173,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "GEORJDY ALAIN RONDOY ORTIZ",
+                  "TNPS": 0.7115384615384616,
+                  "TX": 0.859504132231405,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "Aquiles Jeampier Chuan Munguia",
+                  "TNPS": 0.7111111111111111,
+                  "TX": 0.7777777777777778,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "Isabel Cristina Moran Rosales",
+                  "TNPS": 0.7055214723926381,
+                  "TX": 0.7166392092257001,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "MARIA ISABEL CHAVEZ OLANO",
+                  "TNPS": 0.7007874015748031,
+                  "TX": 0.8629629629629629,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "CARLA NELIDAD VILLALOBOS ZULOETA",
+                  "TNPS": 0.6989247311827957,
+                  "TX": 0.6440129449838188,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "KATIA SARITA ZAPATA MORALES",
+                  "TNPS": 0.6578947368421053,
+                  "TX": 0.8586956521739131,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "Fabrrizio Del piero Quezada Aguilar",
+                  "TNPS": 0.6407766990291263,
+                  "TX": 0.7649122807017544,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "JANET ESTEFANIA ORE QQUEHUE",
+                  "TNPS": 0.6388888888888888,
+                  "TX": 0.6746987951807228,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "GIANFRANCO WILDER QUISOCALA MAMANI",
+                  "TNPS": 0.6323529411764706,
+                  "TX": 0.8282208588957055,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "CARLOS CARLOS ORDINOLA ORDINOLA",
+                  "TNPS": 0.6296296296296297,
+                  "TX": 0.8035714285714286,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "DIANA MIRELLA QUINTANA DURAND",
+                  "TNPS": 0.6031746031746031,
+                  "TX": 0.8081761006289309,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "Nicolas Jesuz Ordinola Diaz",
+                  "TNPS": 0.6,
+                  "TX": 0.6952380952380952,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "JEREMÃAS GALVEZ JUAREZ",
+                  "TNPS": 0.5824175824175825,
+                  "TX": 0.734375,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "SONIA JANET GISMONDI ESPINOZA",
+                  "TNPS": 0.5598290598290598,
+                  "TX": 0.7215815485996705,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "FLOR DE MARIA FERNANDEZ CORREA",
+                  "TNPS": 0.5454545454545454,
+                  "TX": 0.7127659574468085,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "JUAN CARLOS SOSA RETAMOZO",
+                  "TNPS": 0.5441176470588235,
+                  "TX": 0.4692556634304207,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "SANTOS ENRIQUE DIAZ MEZA",
+                  "TNPS": 0.5178571428571429,
+                  "TX": 0.6978021978021978,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "NAOMI CARMEN OCHOA OCHOA",
+                  "TNPS": 0.42857142857142855,
+                  "TX": 0.6451612903225806,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "KAREN ROCIO ROCIO PEREYRA DIESBACK",
+                  "TNPS": 0.35294117647058826,
+                  "TX": 0.7727272727272727,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 },
+                 {
+                  "ASESOR": "Janilva Octavia Huaman Aramburu",
+                  "TNPS": 0.1,
+                  "TX": 0.7647058823529411,
+                  "SUPERVISOR": "PARRA PAREDES RAUL JESUS"
+                 }
+            ]
+        };
+
+        function cargarSupervisores() {
+            const supervisores = [...new Set(data.Hoja2.map(item => item.SUPERVISOR))];
+            const supervisorSelect = document.getElementById('supervisor');
+            supervisores.forEach(supervisor => {
+                const option = document.createElement('option');
+                option.value = supervisor;
+                option.textContent = supervisor;
+                supervisorSelect.appendChild(option);
+            });
+        }
+
+        function cargarAsesores() {
+            const supervisor = document.getElementById('supervisor').value;
+            const asesoresSelect = document.getElementById('asesor');
+            asesoresSelect.innerHTML = '<option value="">Selecciona un asesor</option>';
+
+            const asesores = data.Hoja2.filter(item => item.SUPERVISOR === supervisor);
+            asesores.forEach(asesor => {
+                const option = document.createElement('option');
+                option.value = asesor.ASESOR;
+                option.textContent = asesor.ASESOR;
+                asesoresSelect.appendChild(option);
+            });
+        }
+
+        function mostrarResultados() {
+            const asesor = document.getElementById('asesor').value;
+            const result = data.Hoja2.find(item => item.ASESOR === asesor);
+            const tnpsDisplay = document.getElementById('tnpsDisplay');
+            const txDisplay = document.getElementById('txDisplay');
+
+            if (result) {
+                const tnpsPercentage = (result.TNPS * 100).toFixed(2); // Convertir a porcentaje con dos decimales
+                const txPercentage = (result.TX * 100).toFixed(2);
+
+                // Cambiar el color basado en el porcentaje
+                if (tnpsPercentage < 73) {
+                    tnpsDisplay.style.color = 'red'; // Si es menor a 73%, mostrar en rojo
+                } else {
+                    tnpsDisplay.style.color = 'green'; // Si es mayor o igual a 73%, mostrar en verde
+                }
+
+
+                // Cambiar el color basado en el porcentaje
+                if (txPercentage < 79) {
+                    txDisplay.style.color = 'red'; // Si es menor a 73%, mostrar en rojo
+                } else {
+                    txDisplay.style.color = 'green'; // Si es mayor o igual a 73%, mostrar en verde
+                }
+
+                // Mostrar TNPS
+                tnpsDisplay.textContent = `TNPS: ${tnpsPercentage}%`;
+                tnpsDisplay.style.display = 'block';
+
+                // Mostrar TX
+                txDisplay.textContent = `TX: ${txPercentage}%`;
+                txDisplay.style.display = 'block';
+            } else {
+                tnpsDisplay.style.display = 'none'; // Ocultar si no hay resultado
+                txDisplay.style.display = 'none'; // Ocultar si no hay resultado
+            }
+        }
+
+        window.onload = function() {
+            cargarSupervisores();
+        };
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Consulta de TNPS y TX</h1>
+
+        <label for="supervisor">Selecciona un supervisor:</label>
+        <select id="supervisor" onchange="cargarAsesores()">
+            <option value="">Selecciona un supervisor</option>
+        </select>
+
+        <br>
+
+        <label for="asesor">Selecciona un asesor:</label>
+        <select id="asesor" onchange="mostrarResultados()">
+            <option value="">Selecciona un asesor</option>
+        </select>
+
+        <div id="tnpsDisplay"></div>
+        <div id="txDisplay"></div>
+
+        <p class="info">Recuerdar tomarle captura a tus indicadores y mostrarle a tu supervisor</p>
+    </div>
+
+</body>
+</html>
