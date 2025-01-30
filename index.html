@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indicadores TNPS, TX y Calidad</title>
+    <title>Indicadores Complejos</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -116,13 +117,59 @@
             background: #e8faf0;
             color: var(--success-color);
         }
-
     </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Indicadores de Desempeño</h1>
+        </div>
+        
+        <div class="filters">
+            <div class="select-container">
+                <select id="supervisor" onchange="cargarAsesores()">
+                    <option value="">Seleccionar supervisor...</option>
+                </select>
+            </div>
+            <div class="select-container">
+                <select id="asesor" onchange="actualizarDashboard()">
+                    <option value="">Seleccionar asesor...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div>TNPS Actual</div>
+                <div id="tnps-value" class="metric-value">-</div>
+                <div class="meta">Meta: 73%</div>
+            </div>
+            <div class="metric-card">
+                <div>TX Actual</div>
+                <div id="tx-value" class="metric-value">-</div>
+                <div class="meta">Meta: 79%</div>
+            </div>
+            <div class="metric-card">
+                <div>Calidad</div>
+                <div id="calidad-value" class="metric-value">-</div>
+                <div class="meta">Meta: 85%</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="chart"></canvas>
+        </div>
+
+        <div id="alert" class="alert"></div>
+    </div>
+
     <script>
+        Chart.register(ChartDataLabels);
         let myChart = null;
-        const data = { "Hoja2":[
-            /* Datos existentes con el nuevo campo CALIDAD agregado */
-                 {
+        
+        const data = { 
+            "Hoja2": [
+                {
                   "ASESOR": "Jackeline Judith Gutierrez Carrillo",
                   "TNPS": 1,
                   "TX": 0.7368421052631579,
@@ -1474,12 +1521,12 @@
                   "SUPERVISOR": "PARRA PAREDES RAUL JESUS",
                   "NOMBRE CORRECTO": "HUAMAN ARAMBURU JANILVA OCTAVIA"
                  }
-             /* ... resto de datos con CALIDAD ... */
-        ]};
-        
+            ]
+        };
+
         const metaTNPS = 73;
         const metaTX = 79;
-        const metaCalidad = 84;
+        const metaCalidad = 85;
 
         function cargarSupervisores() {
             const supervisores = [...new Set(data.Hoja2.map(item => item.SUPERVISOR))];
@@ -1528,6 +1575,7 @@
 
             myChart = new Chart(ctx, {
                 type: 'bar',
+                plugins: [ChartDataLabels],
                 data: {
                     labels: ['TNPS', 'TX', 'Calidad'],
                     datasets: [{
@@ -1535,7 +1583,24 @@
                         data: [tnps, tx, calidad],
                         backgroundColor: [ '#3498db', '#2ecc71', '#9b59b6' ],
                         borderWidth: 0,
-                        borderRadius: 4
+                        borderRadius: 4,
+                        datalabels: {
+                            anchor: 'center',
+                            align: 'center',
+                            formatter: (value, context) => {
+                                const label = context.chart.data.labels[context.dataIndex];
+                                return `${label}\n${value}%`;
+                            },
+                            color: '#fff',
+                            font: {
+                                size: 20,
+                                weight: 'bold'
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 10
+                            }
+                        }
                     },
                     {
                         label: 'Meta',
@@ -1545,7 +1610,10 @@
                         borderColor: '#e74c3c',
                         borderWidth: 2,
                         pointRadius: 0,
-                        tension: 0.4
+                        tension: 0.4,
+                        datalabels: {
+                            display: false
+                        }
                     }]
                 },
                 options: {
@@ -1563,6 +1631,11 @@
                         }
                     },
                     plugins: {
+                        datalabels: {
+                            display: true,
+                            clamp: true,
+                            clip: false
+                        },
                         legend: {
                             position: 'top',
                             labels: { color: '#2c3e50' }
@@ -1594,49 +1667,5 @@
 
         window.onload = cargarSupervisores;
     </script>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Indicadores de desempeño</h1>
-        </div>
-        
-        <div class="filters">
-            <div class="select-container">
-                <select id="supervisor" onchange="cargarAsesores()">
-                    <option value="">Seleccionar supervisor...</option>
-                </select>
-            </div>
-            <div class="select-container">
-                <select id="asesor" onchange="actualizarDashboard()">
-                    <option value="">Seleccionar asesor...</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <div>TNPS Actual</div>
-                <div id="tnps-value" class="metric-value">-</div>
-                <div class="meta">Meta: 73%</div>
-            </div>
-            <div class="metric-card">
-                <div>TX Actual</div>
-                <div id="tx-value" class="metric-value">-</div>
-                <div class="meta">Meta: 79%</div>
-            </div>
-            <div class="metric-card">
-                <div>Calidad</div>
-                <div id="calidad-value" class="metric-value">-</div>
-                <div class="meta">Meta: 85%</div>
-            </div>
-        </div>
-
-        <div class="chart-container">
-            <canvas id="chart"></canvas>
-        </div>
-
-        <div id="alert" class="alert"></div>
-    </div>
 </body>
 </html>
